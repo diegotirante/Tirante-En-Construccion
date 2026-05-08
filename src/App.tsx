@@ -186,21 +186,7 @@ export default function App() {
         <div className="absolute top-10 left-10 text-[10px] uppercase tracking-[0.5em] font-light opacity-20 transform -rotate-90 origin-top-left">
           Exclusividad & Visión
         </div>
-        <div 
-          className="absolute top-10 right-10 text-[10px] uppercase tracking-[0.5em] font-light opacity-20 cursor-pointer pointer-events-auto select-none"
-          onClick={(e) => {
-            if (e.ctrlKey) {
-              const html = document.documentElement.outerHTML;
-              const blob = new Blob([html], { type: "text/plain" });
-              const url = URL.createObjectURL(blob);
-              const a = document.createElement("a");
-              a.href = url;
-              a.download = "codigo_web_tirante.txt";
-              a.click();
-              URL.revokeObjectURL(url);
-            }
-          }}
-        >
+        <div className="absolute top-10 right-10 text-[10px] uppercase tracking-[0.5em] font-light opacity-20">
           Pinamar • 2027
         </div>
       </div>
