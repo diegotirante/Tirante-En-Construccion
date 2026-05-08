@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TIRANTE® | Bienes Raíces</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000;
+            color: white;
+            margin: 0;
+            overflow: hidden;
+        }
+        .bokeh-orb {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            filter: blur(100px);
+            pointer-events: none;
+            transition: background-color 1.2s ease, opacity 1.2s ease;
+        }
+        .transition-all-custom {
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center px-6">
+    <!-- Background -->
+    <div id="bg-container" class="absolute inset-0 z-0 transition-colors duration-600 ease-in-out bg-black overflow-hidden">
+        <div id="orbs-container"></div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="relative z-10 flex flex-col items-center text-center space-y-20">
+        <div class="space-y-8 flex flex-col items-center">
+            <p id="apertura-text" class="text-[10px] md:text-xs font-medium text-white/60 tracking-[0.6em] uppercase transition-colors duration-800">
+                PRÓXIMA APERTURA DE OFICINA
+            </p>
+            
+            <!-- Logo Section -->
+            <div id="logo-button" class="flex flex-col items-center gap-2 cursor-pointer group select-none">
+                <div class="flex items-center gap-3">
+                    <div class="flex items-start">
+                        <span id="logo-text" class="text-3xl md:text-5xl font-bold tracking-tighter uppercase leading-none transition-colors duration-800">
+                            TIRANTE
+                        </span>
+                        <span id="logo-reg" class="text-[10px] md:text-[14px] font-bold leading-none mt-1 transition-colors duration-800">
+                            ®
+                        </span>
+                    </div>
+                    <div id="logo-bar" class="w-[2px] h-8 md:h-10 self-center bg-[#E30613] transition-colors duration-800"></div>
+                    <span id="logo-subtext" class="text-lg md:text-3xl font-light tracking-tight text-white/90 italic transition-colors duration-800">
+                        Bienes Raíces
+                    </span>
+                </div>
+                <span id="logo-slogan" class="text-[10px] md:text-xs font-light tracking-[0.4em] uppercase text-white/40 group-hover:text-white/60 transition-colors duration-800">
+                    Resultados que trascienden.
+                </span>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="fixed bottom-12 w-full flex flex-col items-center gap-4 z-10">
+        <p class="text-[10px] md:text-xs font-light tracking-wider opacity-40">
+            Copyright de TIRANTE® | Bienes Raíces - 2026
+        </p>
+        <a id="whatsapp-link" href="#" target="_blank" rel="noopener noreferrer" class="text-[11px] md:text-sm font-medium tracking-[0.2em] text-white/60 hover:text-white transition-colors duration-300">
+            2267-532829
+        </a>
+        <p class="text-[9px] md:text-[10px] font-light opacity-30 tracking-widest">
+            www.tirante.com.ar
+        </p>
+    </footer>
+
+    <!-- Side Labels -->
+    <div class="hidden md:block fixed inset-0 pointer-events-none z-10">
+        <div class="absolute top-10 left-10 text-[10px] uppercase tracking-[0.5em] font-light opacity-20 transform -rotate-90 origin-top-left">
+            Exclusividad & Visión
+        </div>
+        <div class="absolute top-10 right-10 text-[10px] uppercase tracking-[0.5em] font-light opacity-20">
+            Pinamar • 2027
+        </div>
+    </div>
+
+    <script>
+        const bgContainer = document.getElementById('bg-container');
+        const logoButton = document.getElementById('logo-button');
+        const logoText = document.getElementById('logo-text');
+        const logoReg = document.getElementById('logo-reg');
+        const logoBar = document.getElementById('logo-bar');
+        const logoSubtext = document.getElementById('logo-subtext');
+        const logoSlogan = document.getElementById('logo-slogan');
+        const whatsappLink = document.getElementById('whatsapp-link');
+        const orbsContainer = document.getElementById('orbs-container');
+
+        let isRed = false;
+
+        // WhatsApp Setup
+        const whatsappNumber = "+542267532829";
+        const whatsappMessage = encodeURIComponent("Estoy interesado en conocer tu Inmobiliria TIRANTE® | Bienes Raices.");
+        whatsappLink.href = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+
+        // Toggle Background Function
+        logoButton.addEventListener('click', () => {
+            isRed = !isRed;
+            if (isRed) {
+                bgContainer.style.backgroundColor = '#B42023';
+                logoText.style.color = '#000000';
+                logoReg.style.color = '#000000';
+                logoBar.style.backgroundColor = '#000000';
+                logoSubtext.style.color = '#000000';
+                logoSlogan.style.color = '#FFFFFF';
+                updateOrbs('#0a1f44', 0.1);
+            } else {
+                bgContainer.style.backgroundColor = '#000000';
+                logoText.style.color = '#FFFFFF';
+                logoReg.style.color = '#FFFFFF';
+                logoBar.style.backgroundColor = '#E30613';
+                logoSubtext.style.color = 'rgba(255, 255, 255, 0.9)';
+                logoSlogan.style.color = 'rgba(255, 255, 255, 0.4)';
+                updateOrbs('#FFFFFF', 0.25);
+            }
+        });
+
+        // Bokeh Orbs
+        const orbs = [];
+        const numOrbs = 5;
+
+        for (let i = 0; i < numOrbs; i++) {
+            const orb = document.createElement('div');
+            orb.className = 'bokeh-orb';
+            const size = window.innerWidth > 768 ? '40rem' : '16rem';
+            orb.style.width = size;
+            orb.style.height = size;
+            orb.style.left = Math.random() * 100 + '%';
+            orb.style.top = Math.random() * 100 + '%';
+            orb.style.opacity = '0.15';
+            orbsContainer.appendChild(orb);
+            orbs.push({
+                el: orb,
+                x: Math.random() * 100,
+                y: Math.random() * 100,
+                targetX: Math.random() * 100,
+                targetY: Math.random() * 100
+            });
+        }
+
+        function updateOrbs(color, opacity) {
+            orbs.forEach(orb => {
+                orb.el.style.backgroundColor = color;
+                orb.el.style.opacity = opacity;
+            });
+        }
+
+        // Mouse Movement
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth) * 100;
+            const y = (e.clientY / window.innerHeight) * 100;
+
+            orbs.forEach((orb, i) => {
+                const delay = i * 0.1;
+                const tx = orb.x + (x - 50) * (0.1 + delay);
+                const ty = orb.y + (y - 50) * (0.1 + delay);
+                orb.el.style.transform = `translate(${tx - 50}%, ${ty - 50}%)`;
+            });
+        });
+    </script>
+</body>
+</html>
