@@ -31,6 +31,7 @@
     <!-- Background -->
     <div id="bg-container" class="absolute inset-0 z-0 transition-colors duration-600 ease-in-out bg-black overflow-hidden">
         <div id="orbs-container"></div>
+        <div id="text-bg" class="absolute inset-0 overflow-hidden pointer-events-none opacity-0 transition-opacity duration-1000"></div>
     </div>
 
     <!-- Main Content -->
@@ -96,8 +97,39 @@
         const logoSlogan = document.getElementById('logo-slogan');
         const whatsappLink = document.getElementById('whatsapp-link');
         const orbsContainer = document.getElementById('orbs-container');
+        const textBg = document.getElementById('text-bg');
 
         let isRed = false;
+
+        const words = ["PINAMAR", "OSTENDE", "VALERIA DEL MAR", "CARILO", "COSTA ESMERALDA", "MADARIAGA", "CASA", "DEPARTAMENTO", "LOCAL", "TERRENO", "COMPRA", "VENTA", "ALQUILERES", "NEGOCIOS"];
+
+        function createBackgroundText() {
+            for (let i = 0; i < 30; i++) {
+                const span = document.createElement('span');
+                span.innerText = words[i % words.length];
+                span.className = 'absolute font-bold whitespace-nowrap pointer-events-none select-none';
+                span.style.left = Math.random() * 100 + 'vw';
+                span.style.top = Math.random() * 100 + 'vh';
+                span.style.fontSize = (1 + Math.random() * 3) + 'rem';
+                span.style.color = '#E30613';
+                span.style.opacity = (0.05 + Math.random() * 0.1).toString();
+                span.style.filter = 'blur(1px)';
+                
+                const duration = 20000 + Math.random() * 40000;
+                span.animate([
+                    { transform: 'translate(0, 0)' },
+                    { transform: `translate(${(Math.random() - 0.5) * 150}px, ${(Math.random() - 0.5) * 150}px)` },
+                    { transform: 'translate(0, 0)' }
+                ], {
+                    duration: duration,
+                    iterations: Infinity,
+                    easing: 'linear'
+                });
+                
+                textBg.appendChild(span);
+            }
+        }
+        createBackgroundText();
 
         // WhatsApp Setup
         const whatsappNumber = "+542267532829";
@@ -114,6 +146,7 @@
                 logoBar.style.backgroundColor = '#000000';
                 logoSubtext.style.color = '#000000';
                 logoSlogan.style.color = '#FFFFFF';
+                textBg.style.opacity = '1';
                 updateOrbs('#0a1f44', 0.1);
             } else {
                 bgContainer.style.backgroundColor = '#000000';
@@ -122,6 +155,7 @@
                 logoBar.style.backgroundColor = '#E30613';
                 logoSubtext.style.color = 'rgba(255, 255, 255, 0.9)';
                 logoSlogan.style.color = 'rgba(255, 255, 255, 0.4)';
+                textBg.style.opacity = '0';
                 updateOrbs('#FFFFFF', 0.25);
             }
         });

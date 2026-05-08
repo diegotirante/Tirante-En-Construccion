@@ -112,6 +112,57 @@ const Logo = ({ className = "", bgIsRed = false, onClick }: { className?: string
   </div>
 );
 
+const words = [
+  "PINAMAR", "OSTENDE", "VALERIA DEL MAR", "CARILO", "COSTA ESMERALDA", "MADARIAGA",
+  "CASA", "DEPARTAMENTO", "LOCAL", "TERRENO", "COMPRA", "VENTA", "ALQUILERES", "NEGOCIOS"
+];
+
+const FloatingText = ({ text }: { text: string; key?: React.Key }) => {
+  const [initialPos] = useState({
+    x: Math.random() * 100,
+    y: Math.random() * 100,
+    size: 1 + Math.random() * 3, // 1rem to 4rem
+    opacity: 0.05 + Math.random() * 0.1,
+    duration: 30 + Math.random() * 30,
+  });
+
+  return (
+    <motion.span
+      initial={{ x: `${initialPos.x}vw`, y: `${initialPos.y}vh`, opacity: 0 }}
+      animate={{ 
+        opacity: initialPos.opacity,
+        x: [`${initialPos.x}vw`, `${(initialPos.x + 10) % 100}vw`, `${initialPos.x}vw`],
+        y: [`${initialPos.y}vh`, `${(initialPos.y + 10) % 100}vh`, `${initialPos.y}vh`],
+      }}
+      transition={{
+        duration: initialPos.duration,
+        repeat: Infinity,
+        ease: "linear",
+      }}
+      className="absolute font-bold whitespace-nowrap pointer-events-none select-none"
+      style={{
+        fontSize: `${initialPos.size}rem`,
+        color: "#E30613", // Lighter crimson
+        filter: "blur(1px)",
+      }}
+    >
+      {text}
+    </motion.span>
+  );
+};
+
+const BackgroundText = ({ active }: { active: boolean }) => {
+  if (!active) return null;
+
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+      {[...Array(25)].map((_, i) => (
+        <FloatingText key={i} text={words[i % words.length]} />
+      ))}
+    </div>
+  );
+};
+
 export default function App() {
   const [bgIsRed, setBgIsRed] = useState(false);
   const whatsappNumber = "+542267532829";
@@ -128,6 +179,7 @@ export default function App() {
       className="relative min-h-screen w-full flex flex-col items-center justify-center text-white px-6 font-sans overflow-hidden"
     >
       <BokehBackground bgIsRed={bgIsRed} />
+      <BackgroundText active={bgIsRed} />
 
       {/* Main Content */}
       <main className="relative z-10 flex flex-col items-center text-center space-y-20">
