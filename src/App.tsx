@@ -398,20 +398,20 @@ export default function App() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1.2, delay: 0.6 }}
-              className="relative sm:absolute sm:bottom-12 sm:inset-x-0 pb-8 sm:pb-0 z-10 text-center flex flex-col items-center gap-2"
+              className="relative sm:absolute sm:bottom-12 sm:inset-x-0 pb-14 sm:pb-0 z-10 text-center flex flex-col items-center gap-1.5 sm:gap-2"
             >
-              <p className="text-[10px] md:text-xs font-light tracking-wider text-neutral-800/50">
+              <p className="text-[10px] md:text-xs font-light tracking-wider text-neutral-800/60">
                 Copyright de TIRANTE® | Bienes Raíces - 2026
               </p>
               <a 
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[11px] md:text-sm font-medium tracking-[0.2em] text-neutral-800/80 hover:text-black transition-colors duration-300"
+                className="text-[11px] md:text-sm font-medium tracking-[0.2em] text-neutral-800/85 hover:text-black transition-colors duration-300"
               >
                 2267-532829
               </a>
-              <p className="text-[9px] md:text-[10px] font-light text-neutral-800/40 tracking-widest">
+              <p className="text-[10px] md:text-[10px] font-medium text-neutral-800/60 tracking-widest">
                 www.tirante.com.ar
               </p>
             </motion.footer>
