@@ -117,7 +117,7 @@ const words = [
   "CASA", "DEPARTAMENTO", "LOCAL", "TERRENO", "COMPRA", "VENTA", "ALQUILERES", "NEGOCIOS"
 ];
 
-const FloatingText = ({ text }: { text: string; key?: React.Key }) => {
+const FloatingText = ({ text, bgIsRed }: { text: string; bgIsRed: boolean; key?: React.Key }) => {
   const [initialPos] = useState({
     x: Math.random() * 100,
     y: Math.random() * 100,
@@ -133,16 +133,17 @@ const FloatingText = ({ text }: { text: string; key?: React.Key }) => {
         opacity: initialPos.opacity,
         x: [`${initialPos.x}vw`, `${(initialPos.x + 10) % 100}vw`, `${initialPos.x}vw`],
         y: [`${initialPos.y}vh`, `${(initialPos.y + 10) % 100}vh`, `${initialPos.y}vh`],
+        color: bgIsRed ? "#E30613" : "#1a1a1a" // Crimson vs Dark Gray (light black)
       }}
       transition={{
         duration: initialPos.duration,
         repeat: Infinity,
         ease: "linear",
+        color: { duration: 0.8 }
       }}
       className="absolute font-bold whitespace-nowrap pointer-events-none select-none"
       style={{
         fontSize: `${initialPos.size}rem`,
-        color: "#E30613", // Lighter crimson
         filter: "blur(1px)",
       }}
     >
@@ -151,13 +152,11 @@ const FloatingText = ({ text }: { text: string; key?: React.Key }) => {
   );
 };
 
-const BackgroundText = ({ active }: { active: boolean }) => {
-  if (!active) return null;
-
+const BackgroundText = ({ bgIsRed }: { bgIsRed: boolean }) => {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
       {[...Array(25)].map((_, i) => (
-        <FloatingText key={i} text={words[i % words.length]} />
+        <FloatingText key={i} text={words[i % words.length]} bgIsRed={bgIsRed} />
       ))}
     </div>
   );
@@ -179,7 +178,7 @@ export default function App() {
       className="relative min-h-screen w-full flex flex-col items-center justify-center text-white px-6 font-sans overflow-hidden"
     >
       <BokehBackground bgIsRed={bgIsRed} />
-      <BackgroundText active={bgIsRed} />
+      <BackgroundText bgIsRed={bgIsRed} />
 
       {/* Main Content */}
       <main className="relative z-10 flex flex-col items-center text-center space-y-20">

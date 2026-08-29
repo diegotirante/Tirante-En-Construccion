@@ -31,7 +31,7 @@
     <!-- Background -->
     <div id="bg-container" class="absolute inset-0 z-0 transition-colors duration-600 ease-in-out bg-black overflow-hidden">
         <div id="orbs-container"></div>
-        <div id="text-bg" class="absolute inset-0 overflow-hidden pointer-events-none opacity-0 transition-opacity duration-1000"></div>
+        <div id="text-bg" class="absolute inset-0 overflow-hidden pointer-events-none opacity-100 transition-opacity duration-1000"></div>
     </div>
 
     <!-- Main Content -->
@@ -102,16 +102,17 @@
         let isRed = false;
 
         const words = ["PINAMAR", "OSTENDE", "VALERIA DEL MAR", "CARILO", "COSTA ESMERALDA", "MADARIAGA", "CASA", "DEPARTAMENTO", "LOCAL", "TERRENO", "COMPRA", "VENTA", "ALQUILERES", "NEGOCIOS"];
+        const backgroundSpans = [];
 
         function createBackgroundText() {
             for (let i = 0; i < 30; i++) {
                 const span = document.createElement('span');
                 span.innerText = words[i % words.length];
-                span.className = 'absolute font-bold whitespace-nowrap pointer-events-none select-none';
+                span.className = 'absolute font-bold whitespace-nowrap pointer-events-none select-none transition-colors duration-1000';
                 span.style.left = Math.random() * 100 + 'vw';
                 span.style.top = Math.random() * 100 + 'vh';
                 span.style.fontSize = (1 + Math.random() * 3) + 'rem';
-                span.style.color = '#E30613';
+                span.style.color = '#1a1a1a'; // Initial color for black background
                 span.style.opacity = (0.05 + Math.random() * 0.1).toString();
                 span.style.filter = 'blur(1px)';
                 
@@ -127,6 +128,7 @@
                 });
                 
                 textBg.appendChild(span);
+                backgroundSpans.push(span);
             }
         }
         createBackgroundText();
@@ -146,6 +148,7 @@
                 logoBar.style.backgroundColor = '#000000';
                 logoSubtext.style.color = '#000000';
                 logoSlogan.style.color = '#FFFFFF';
+                backgroundSpans.forEach(span => span.style.color = '#E30613');
                 textBg.style.opacity = '1';
                 updateOrbs('#0a1f44', 0.1);
             } else {
@@ -155,7 +158,7 @@
                 logoBar.style.backgroundColor = '#E30613';
                 logoSubtext.style.color = 'rgba(255, 255, 255, 0.9)';
                 logoSlogan.style.color = 'rgba(255, 255, 255, 0.4)';
-                textBg.style.opacity = '0';
+                backgroundSpans.forEach(span => span.style.color = '#1a1a1a');
                 updateOrbs('#FFFFFF', 0.25);
             }
         });
