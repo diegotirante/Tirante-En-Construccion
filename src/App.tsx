@@ -243,7 +243,7 @@ export default function App() {
             </motion.footer>
 
             {/* Aesthetic Accents - Corners */}
-            <div className="absolute top-0 left-0 w-full h-full p-10 pointer-events-none hidden md:block z-10">
+            <div className="absolute top-0 left-0 w-full h-full p-8 sm:p-10 pointer-events-none hidden sm:block z-10">
               <div className="absolute top-10 left-10 text-[10px] uppercase tracking-[0.5em] font-light opacity-20 transform -rotate-90 origin-top-left">
                 Exclusividad & Visión
               </div>
@@ -262,55 +262,103 @@ export default function App() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.7, ease: "easeInOut" }}
-            className="relative min-h-screen w-full flex flex-col justify-between text-[#0A0A0A] px-6 font-sans overflow-hidden bg-cover bg-no-repeat bg-center md:bg-[right_center] bg-[url('/images/puerta-celular.png')] md:bg-[url('/images/puerta-escritorio.png')]"
+            className="relative min-h-screen w-full flex flex-col justify-between text-[#0A0A0A] font-sans overflow-hidden"
           >
-            {/* Desktop View Layout (md: y superior) */}
-            <div className="hidden md:flex flex-1 items-center z-10 w-full max-w-7xl mx-auto md:pl-16 lg:pl-24 py-16">
+            {/* Background Layer with Responsive Orientation & Position */}
+            <div 
+              className="absolute inset-0 pointer-events-none z-0 bg-no-repeat bg-cover 
+                bg-[url('/images/puerta-celular.png')] bg-center 
+                portrait:sm:bg-[url('/images/puerta-escritorio.png')] portrait:sm:scale-x-[-1] portrait:sm:bg-[right_center] portrait:sm:bg-cover
+                landscape:sm:bg-[url('/images/puerta-escritorio.png')] landscape:sm:bg-[right_center] landscape:sm:bg-cover"
+            />
+
+            {/* 1. TABLET/DESKTOP LANDSCAPE (Horizontal / Apaisada - sm: y superior en landscape, o lg: siempre) */}
+            <div className="hidden landscape:sm:flex lg:flex flex-1 items-center z-10 w-full max-w-7xl mx-auto px-6 sm:pl-10 md:pl-16 lg:pl-24 py-8 md:py-16">
               <motion.div 
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.9, delay: 0.2 }}
-                className="w-full md:w-[48%] lg:w-[45%] flex flex-col items-start text-left space-y-6"
+                className="w-full sm:w-[48%] md:w-[46%] lg:w-[44%] flex flex-col items-start text-left space-y-3.5 sm:space-y-4 md:space-y-6 scale-[0.85] sm:scale-[0.82] md:scale-[0.9] lg:scale-100 origin-left"
               >
                 {/* a. Badge */}
-                <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-[#E30613] text-white text-[10px] lg:text-xs font-semibold tracking-[0.25em] uppercase shadow-sm">
+                <div className="inline-flex items-center px-3.5 sm:px-4 py-1.5 rounded-full bg-[#E30613] text-white text-[9px] sm:text-[10px] lg:text-xs font-semibold tracking-[0.25em] uppercase shadow-sm">
                   SITIO EN CONSTRUCCIÓN
                 </div>
 
                 {/* b. Title en 3 líneas */}
-                <h1 className="text-4xl lg:text-6xl font-light tracking-tight uppercase text-[#0A0A0A] leading-[1.08]">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light tracking-tight uppercase text-[#0A0A0A] leading-[1.1]">
                   ESTAMOS<br />
                   CONSTRUYENDO<br />
                   ALGO NUEVO<span className="text-[#E30613] font-normal">.</span>
                 </h1>
 
                 {/* c. Línea roja separadora */}
-                <div className="w-12 h-[2px] bg-[#E30613]" />
+                <div className="w-10 sm:w-12 h-[2px] bg-[#E30613]" />
 
                 {/* d. Texto de apoyo */}
-                <div className="space-y-1.5 text-sm lg:text-base font-light text-[#1E1E1E]/80 leading-relaxed">
+                <div className="space-y-1 sm:space-y-1.5 text-xs sm:text-sm lg:text-base font-light text-[#1E1E1E]/80 leading-relaxed">
                   <p>Un nuevo espacio para <strong className="font-bold text-[#0A0A0A]">encontrar</strong> tu lugar.</p>
                   <p>Resultados que <strong className="font-bold text-[#0A0A0A]">trascienden</strong>.</p>
                   <p>Ya casi está <strong className="font-bold text-[#0A0A0A]">listo</strong>.</p>
                 </div>
 
                 {/* e. Logo & f. Próxima apertura */}
-                <div className="pt-4 flex flex-col items-start gap-4">
+                <div className="pt-2 sm:pt-3 md:pt-4 flex flex-col items-start gap-3 sm:gap-4">
                   <Logo bgIsRed={true} onClick={toggleView} className="items-start" />
-                  <p className="text-[10px] lg:text-xs font-medium text-neutral-500 tracking-[0.5em] uppercase">
+                  <p className="text-[9px] sm:text-[10px] lg:text-xs font-medium text-neutral-500 tracking-[0.4em] sm:tracking-[0.5em] uppercase">
                     PRÓXIMA APERTURA DE OFICINA
                   </p>
                 </div>
               </motion.div>
             </div>
 
-            {/* Mobile View Layout (debajo de md:) */}
-            <div className="md:hidden flex flex-col items-center text-center z-10 pt-12 pb-32 px-2">
+            {/* 2. TABLET PORTRAIT (Vertical - sm a md/lg en portrait): El texto va a la derecha de la puerta */}
+            <div className="hidden portrait:sm:flex portrait:lg:hidden flex-1 items-center justify-end z-10 w-full max-w-5xl mx-auto px-6 sm:pr-8 md:pr-12 py-12">
+              <motion.div 
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.9, delay: 0.2 }}
+                className="w-[50%] sm:w-[48%] md:w-[46%] flex flex-col items-start text-left space-y-3.5 sm:space-y-4 scale-[0.88] md:scale-[0.92] origin-right"
+              >
+                {/* a. Badge */}
+                <div className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-[#E30613] text-white text-[9px] sm:text-[10px] font-semibold tracking-[0.22em] uppercase shadow-sm">
+                  SITIO EN CONSTRUCCIÓN
+                </div>
+
+                {/* b. Title en 3 líneas */}
+                <h1 className="text-3xl sm:text-4xl md:text-[2.65rem] font-light tracking-tight uppercase text-[#0A0A0A] leading-[1.1]">
+                  ESTAMOS<br />
+                  CONSTRUYENDO<br />
+                  ALGO NUEVO<span className="text-[#E30613] font-normal">.</span>
+                </h1>
+
+                {/* c. Línea roja separadora */}
+                <div className="w-10 sm:w-12 h-[2px] bg-[#E30613]" />
+
+                {/* d. Texto de apoyo */}
+                <div className="space-y-1 sm:space-y-1.5 text-xs sm:text-sm font-light text-[#1E1E1E]/80 leading-relaxed">
+                  <p>Un nuevo espacio para <strong className="font-bold text-[#0A0A0A]">encontrar</strong> tu lugar.</p>
+                  <p>Resultados que <strong className="font-bold text-[#0A0A0A]">trascienden</strong>.</p>
+                  <p>Ya casi está <strong className="font-bold text-[#0A0A0A]">listo</strong>.</p>
+                </div>
+
+                {/* e. Logo & f. Próxima apertura */}
+                <div className="pt-2 sm:pt-3 flex flex-col items-start gap-3">
+                  <Logo bgIsRed={true} onClick={toggleView} className="items-start" />
+                  <p className="text-[9px] sm:text-[10px] font-medium text-neutral-500 tracking-[0.38em] uppercase">
+                    PRÓXIMA APERTURA DE OFICINA
+                  </p>
+                </div>
+              </motion.div>
+            </div>
+
+            {/* 3. MOBILE VIEW LAYOUT (Solo debajo de sm:) */}
+            <div className="sm:hidden flex flex-col items-center text-center z-10 pt-7 px-4">
               <motion.div 
                 initial={{ opacity: 0, y: -15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className="flex flex-col items-center space-y-4 max-w-sm"
+                className="flex flex-col items-center space-y-3.5 max-w-xs transform scale-[0.77] origin-top"
               >
                 {/* 1. Badge */}
                 <div className="inline-flex items-center px-3.5 py-1 rounded-full bg-[#E30613] text-white text-[9px] font-semibold tracking-[0.2em] uppercase shadow-sm">
@@ -350,7 +398,7 @@ export default function App() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1.2, delay: 0.6 }}
-              className="relative md:absolute md:bottom-12 md:inset-x-0 pb-8 md:pb-0 z-10 text-center flex flex-col items-center gap-2"
+              className="relative sm:absolute sm:bottom-12 sm:inset-x-0 pb-8 sm:pb-0 z-10 text-center flex flex-col items-center gap-2"
             >
               <p className="text-[10px] md:text-xs font-light tracking-wider text-neutral-800/50">
                 Copyright de TIRANTE® | Bienes Raíces - 2026
@@ -369,7 +417,7 @@ export default function App() {
             </motion.footer>
 
             {/* Aesthetic Accents - Corners */}
-            <div className="absolute top-0 left-0 w-full h-full p-10 pointer-events-none hidden md:block z-10">
+            <div className="absolute top-0 left-0 w-full h-full p-8 sm:p-10 pointer-events-none hidden sm:block z-10">
               <div className="absolute top-10 left-10 text-[10px] uppercase tracking-[0.5em] font-light text-neutral-800/30 transform -rotate-90 origin-top-left">
                 Exclusividad & Visión
               </div>
