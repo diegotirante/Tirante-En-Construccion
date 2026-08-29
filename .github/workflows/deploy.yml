@@ -20,7 +20,7 @@ jobs:
 
       - name: Instalar dependencias y Compilar
         run: |
-          npm ci
+          npm install
           npm run build
 
       - name: Subir archivos compilados a Plesk vía FTP
@@ -31,3 +31,4 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/
           server-dir: /httpdocs/
+          
