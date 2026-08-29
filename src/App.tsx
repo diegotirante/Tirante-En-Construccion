@@ -286,10 +286,10 @@ export default function App() {
                 </div>
 
                 {/* b. Title en 3 líneas */}
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light tracking-tight uppercase text-[#0A0A0A] leading-[1.1]">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight uppercase text-[#0A0A0A] leading-[1.08]">
                   ESTAMOS<br />
                   CONSTRUYENDO<br />
-                  ALGO NUEVO<span className="text-[#E30613] font-normal">.</span>
+                  ALGO NUEVO<span className="text-[#E30613] font-medium">.</span>
                 </h1>
 
                 {/* c. Línea roja separadora */}
@@ -326,10 +326,10 @@ export default function App() {
                 </div>
 
                 {/* b. Title en 3 líneas */}
-                <h1 className="text-3xl sm:text-4xl md:text-[2.65rem] font-light tracking-tight uppercase text-[#0A0A0A] leading-[1.1]">
+                <h1 className="text-3xl sm:text-4xl md:text-[2.65rem] font-medium tracking-tight uppercase text-[#0A0A0A] leading-[1.08]">
                   ESTAMOS<br />
                   CONSTRUYENDO<br />
-                  ALGO NUEVO<span className="text-[#E30613] font-normal">.</span>
+                  ALGO NUEVO<span className="text-[#E30613] font-medium">.</span>
                 </h1>
 
                 {/* c. Línea roja separadora */}
@@ -366,10 +366,10 @@ export default function App() {
                 </div>
 
                 {/* 2. Título */}
-                <h1 className="text-3xl font-light tracking-tight uppercase text-[#0A0A0A] leading-tight">
+                <h1 className="text-3xl font-medium tracking-tight uppercase text-[#0A0A0A] leading-[1.1]">
                   ESTAMOS<br />
                   CONSTRUYENDO<br />
-                  ALGO NUEVO<span className="text-[#E30613] font-normal">.</span>
+                  ALGO NUEVO<span className="text-[#E30613] font-medium">.</span>
                 </h1>
 
                 {/* 3. Línea roja */}
